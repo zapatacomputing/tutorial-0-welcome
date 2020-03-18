@@ -14,3 +14,7 @@ spec:
           data: |
             from orquestra import welcome
             welcome()
+    outputs:
+      artifacts:
+      - name: welcome
+        path: /app/welcome.json
