@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name                            = "orquestra",
-    packages                        = setuptools.find_namespace_packages(include=['orquestra.*']),
+    packages                        = setuptools.find_packages(where = "python"),
     package_dir                     = {
         "" : "python"
     },
