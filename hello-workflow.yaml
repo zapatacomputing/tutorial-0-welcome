@@ -1,0 +1,68 @@
+# Workflow API version
+ZapOSApiVersion: v1alpha1
+
+# Declares this as workflow
+kind: Workflow
+
+# List resources needed by workflow.
+resources:
+
+# A resource named `welcome` that is a public git repo. All the fields here are required except branch, which defaults to master.
+- name: welcome
+  type: git
+  parameters:
+    url: "git@github.com:zapatacomputing/tutorial-0-welcome.git"
+    branch: "master"
+
+# Another public git repo resource.
+- name: ztransform
+  type: git
+  parameters:
+    url: "git@github.com:zapatacomputing/tutorial-0-ztransform.git"
+    branch: "master"
+
+# Data to help you easily work with your workflow
+metadata:
+
+  # Prefix for workflow ID
+  generateName: welcome-to-orquestra-
+
+# Data for running the workflow
+spec:
+
+  # Think of this as identifying the `main` function -- this tells the workflow which template to start with
+  entrypoint: salutations
+
+  # Initializing global variables for use in workflow
+  arguments:
+    parameters:
+
+    # Where output data is stored -- Must be `quantum-engine` for compatibility with Orquestra data services
+    - s3-bucket: quantum-engine
+    # Path where output data is stored within the `s3-bucket` -- can be anything you want
+    - s3-key: tutorials/welcome/
+
+  # The steps of the workflow
+  templates:
+
+  # `salutations` is a template that just contains a list of `steps`, which are other templates
+  - name: salutations
+    steps:
+
+    # This template runs the `welcome-to-orquestra` template in the `welcome` resource
+    - - name: greeting
+        template: welcome-to-orquestra
+        arguments:
+          parameters:
+          - resources: [welcome]
+
+    # This template runs the `z-transformation` template in the `ztransform` resource
+    - - name: transform-welcome
+        template: z-transformation
+        arguments:
+          parameters:
+          - resources: [ztransform]
+          artifacts:
+          - name: message
+            # This template takes in the output artifact from the `welcome` template
+            from: '{{steps.greeting.outputs.artifacts.welcome}}'
