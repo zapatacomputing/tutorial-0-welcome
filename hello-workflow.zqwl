@@ -11,8 +11,8 @@ imports:
 - name: welcome-to-orquestra
   type: git
   parameters:
-    repository: "git@github.com:max-radin/tutorial-0-welcome.git"
-    branch: "master"
+    repository: "git@github.com:zapatacomputing/tutorial-0-welcome"
+    branch: "workflow-v1"
 
 steps:
 
