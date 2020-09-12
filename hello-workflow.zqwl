@@ -13,6 +13,11 @@ imports:
   parameters:
     repository: "git@github.com:zapatacomputing/tutorial-0-welcome"
     branch: "workflow-v1"
+- name: ztransform
+  type: git
+  parameters:
+    repository: "git@github.com:zapatacomputing/tutorial-0-ztransform.git"
+    branch: "workflow-v1"
 
 steps:
 
@@ -32,8 +37,22 @@ steps:
   outputs:
   - name: welcome
     type: message
-
-# TODO: add z-transform step!
+- name: transform-welcome
+  passed: [greeting]
+  config:
+    runtime:
+      type: python3
+      imports: [ztransform]
+      parameters:
+        file: ztransform/tasks/ztransformation.py
+        function: z_transformation
+  inputs:
+    - message: ((greeting.welcome))
+      type: message
+  outputs:
+    - name: zelcome
+      type: zessage
 
 types:
 - message
+- zessage
