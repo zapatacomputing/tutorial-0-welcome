@@ -12,12 +12,12 @@ imports:
   type: git
   parameters:
     repository: "git@github.com:zapatacomputing/tutorial-0-welcome"
-    branch: "workflow-v1"
+    branch: "master"
 - name: ztransform
   type: git
   parameters:
     repository: "git@github.com:zapatacomputing/tutorial-0-ztransform.git"
-    branch: "workflow-v1"
+    branch: "master"
 
 steps:
 
