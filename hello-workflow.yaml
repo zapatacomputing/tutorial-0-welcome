@@ -30,10 +30,6 @@ steps:
       parameters:
         file: welcome-to-orquestra/src/python/orquestra/welcome.py
         function: welcome
-    resources:
-      cpu: "1000m"
-      memory: "1Gi"
-      disk: "15Gi"
   outputs:
   - name: welcome
     type: message
