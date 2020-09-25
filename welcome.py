@@ -1,5 +1,5 @@
 """
-This module saves a welcome message.
+This function saves a welcome message.
 """
 
 import json
