@@ -4,24 +4,19 @@ apiVersion: io.orquestra.workflow/1.0.0
 # Prefix for workflow ID
 name: hello-workflow
 
-# List resources needed by workflow.
+# List components needed by workflow.
 imports:
 
-# A resource named `welcome-to-orquestra` that is a public git repo. All the fields here are required except branch, which defaults to master.
+# A component named `welcome-to-orquestra` that is a public git repo. All the fields here are required except branch, which defaults to master.
 - name: welcome-to-orquestra
   type: git
   parameters:
-    repository: "git@github.com:zapatacomputing/tutorial-0-welcome"
-    branch: "master"
-- name: ztransform
-  type: git
-  parameters:
-    repository: "git@github.com:zapatacomputing/tutorial-0-ztransform.git"
+    repository: "git@github.com:zapatacomputing/tutorial-0-welcome.git"
     branch: "master"
 
 steps:
 
-# This step runs the `welcome` function in the `welcome-to-orquestra` resource
+# This step runs the `welcome` function in the `welcome-to-orquestra` component
 - name: greeting
   config:
     runtime:
@@ -33,21 +28,6 @@ steps:
   outputs:
   - name: welcome
     type: message
-- name: transform-welcome
-  passed: [greeting]
-  config:
-    runtime:
-      language: python3
-      imports: [ztransform]
-      parameters:
-        file: ztransform/ztransformation.py
-        function: z_transformation
-  inputs:
-    - message: ((greeting.welcome))
-      type: message
-  outputs:
-    - name: zelcome
-      type: zessage
 
 types:
 - message
