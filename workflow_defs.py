@@ -6,7 +6,7 @@ import orquestra.sdk.v2 as sdk
 
 THIS_IMPORT = sdk.GitImport(
     repo_url="git@github.com:zapatacomputing/tutorial-0-welcome.git",
-    git_ref="main",
+    git_ref="master",
 )
 
 @sdk.task(source_import=THIS_IMPORT)
