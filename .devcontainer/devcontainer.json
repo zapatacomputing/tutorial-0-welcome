@@ -1,0 +1,12 @@
+{
+    "name": "Orquestra Dev Container",
+    "image": "orquestra-runtime:latest",
+    "settings": {
+      "python.defaultInterpreterPath": "/home/orquestra/.miniconda3/bin/python",
+      "remote.autoForwardPorts": false
+    },
+    "extensions": ["ms-python.python"],
+    "forwardPorts": [8080],
+    "runArgs": ["--shm-size=512m"],
+    "overrideCommand": false
+  }
