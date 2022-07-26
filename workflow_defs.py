@@ -6,7 +6,7 @@ import orquestra.sdk.v2 as sdk
 
 THIS_IMPORT = sdk.GitImport(
     repo_url="git@github.com:zapatacomputing/tutorial-0-welcome.git",
-    git_ref="master",
+    git_ref="environment-variables",
 )
 
 dependency_imports = [
@@ -25,6 +25,9 @@ def hello(message):
 
 @sdk.workflow
 def hello_workflow():
-    message = os.environ["MESSAGE"]
-    print(f"Message: {message}")
-    return [hello(message)]
+    if "MESSAGE" in os.environ:
+        message = os.environ["MESSAGE"]
+        print(f"message: {message}")
+        return [hello(message)]
+    else:
+        print("MESSAGE not set")
