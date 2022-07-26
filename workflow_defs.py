@@ -12,11 +12,11 @@ THIS_IMPORT = sdk.GitImport(
 dependency_imports = [
     sdk.GitImport(
         repo_url="git@github.com:zapatacomputing/orquestra-workflow.git",
-        git_ref="v0.19.0",
+        git_ref="main",
     ),
     sdk.GitImport(
         repo_url="git@github.com:zapatacomputing/orquestra-sdk.git",
-        git_ref="v0.28.0",
+        git_ref="main",
     ),
 ]
 @sdk.task(source_import=THIS_IMPORT, dependency_imports=dependency_imports)
