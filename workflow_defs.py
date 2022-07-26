@@ -31,3 +31,4 @@ def hello_workflow():
         return [hello(message)]
     else:
         print("MESSAGE not set")
+        return [hello("no one")]
