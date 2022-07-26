@@ -12,11 +12,11 @@ THIS_IMPORT = sdk.GitImport(
 dependency_imports = [
     sdk.GitImport(
         repo_url="git@github.com:zapatacomputing/orquestra-workflow.git",
-        git_ref="v0.22.0",
+        git_ref="v0.19.0",
     ),
     sdk.GitImport(
         repo_url="git@github.com:zapatacomputing/orquestra-sdk.git",
-        git_ref="v0.31.0",
+        git_ref="v0.28.0",
     ),
 ]
 @sdk.task(source_import=THIS_IMPORT, dependency_imports=dependency_imports)
@@ -25,10 +25,10 @@ def hello(message):
 
 @sdk.workflow
 def hello_workflow():
-    if "MESSAGE" in os.environ:
-        message = os.environ["MESSAGE"]
-        print(f"message: {message}")
-        return [hello(message)]
-    else:
-        print("MESSAGE not set")
-        return [hello("no one")]
+    # A workaround needed because the MESSAGE environment variable is not set on Quantum Engine workers.
+    if "MESSAGE" not in os.environ:
+        return []
+    
+    message = os.environ["MESSAGE"]
+    print(f"message: {message}")
+    return [hello(message)]
